@@ -3,7 +3,7 @@ export CC  = gcc
 export CXX = g++
 export NVCC =nvcc
 
-export CFLAGS = -Wall -O3 -msse3 -Wno-unknown-pragmas -funroll-loops -I../mshadow/ -I..
+export CFLAGS = -Wall -O3 -msse3 -Wno-unknown-pragmas -funroll-loops -I../mshadow/ -I.. -I/opt/intel/composer_xe_2015.2.164/mkl/include/
 export LDFLAGS=
 export NVCCFLAGS = -g -O3 -ccbin $(CXX)
 

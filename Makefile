@@ -3,13 +3,13 @@ export CC  = gcc
 export CXX = g++
 export NVCC =nvcc
 
-export CFLAGS = -Wall -g -O3 -msse3 -Wno-unknown-pragmas -funroll-loops -I./mshadow/
+export CFLAGS = -pthread -Wall -g -O3 -msse3 -Wno-unknown-pragmas -funroll-loops -I/opt/intel/composer_xe_2015.2.164/mkl/include/ -I./mshadow/
 
 ifeq ($(blas),1)
  LDFLAGS= -lm -lcudart -lcublas -lcurand -lz `pkg-config --libs opencv` -lblas
  CFLAGS+= -DMSHADOW_USE_MKL=0 -DMSHADOW_USE_CBLAS=1
 else
- LDFLAGS= -lm -lcudart -lcublas -lmkl_core -lmkl_intel_lp64 -lmkl_intel_thread -liomp5 -lpthread -lcurand -lz `pkg-config --libs opencv`
+ LDFLAGS= -L/opt/intel/composer_xe_2015.2.164/mkl/lib/intel64 -L/opt/intel/composer_xe_2015.2.164/mkl/lib/mic -L/opt/intel/composer_xe_2015.2.164/compiler/lib/intel64 -lm -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -lpthread -lcublas -lcudart -lm -liomp5 -lpthread -lcurand -lz `pkg-config --libs opencv`
 endif
 
 export NVCCFLAGS = --use_fast_math -g -O3 -ccbin $(CXX)
